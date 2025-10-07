@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Organizer Dashboard{% endblock %}
+{% block content %}
+<style>
+  .upload-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+  }
+  .events-list {
+    max-width: 900px;
+    margin: 3rem auto;
+  }
+  .event-item {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+  }
+  .event-image {
+    max-width: 140px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  .event-details {
+    flex-grow: 1;
+  }
+  .event-details strong {
+    font-size: 1.25rem;
+  }
+  .event-details p {
+    margin: 4px 0;
+  }
+  .btn-view-registrations {
+    height: 38px;
+    align-self: flex-start;
+  }
+</style>
+
+<div class="upload-form">
+  <h2 class="mb-4 text-center">Upload New Event</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label">Event Title</label>
+      <input type="text" name="title" id="title" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Event Description</label>
+      <textarea name="description" id="description" class="form-control" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="date" class="form-label">Date (YYYY-MM-DD)</label>
+      <input type="text" name="date" id="date" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">Location</label>
+      <input type="text" name="location" id="location" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Event Image</label>
+      <input type="file" name="image" id="image" class="form-control" accept="image/*" />
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Upload Event</button>
+  </form>
+</div>
+
+<div class="events-list">
+  <h3 class="mb-4">Your Uploaded Events</h3>
+  {% for event in events %}
+  <div class="event-item">
+    {% if event.image_filename %}
+    <img src="{{ url_for('static', filename='event_images/' ~ event.image_filename) }}" alt="Event image" class="event-image" />
+    {% else %}
+    <div class="event-image bg-secondary d-flex justify-content-center align-items-center text-white">No Image</div>
+    {% endif %}
+    <div class="event-details">
+      <strong>{{ event.title }}</strong>
+      <p><strong>Date:</strong> {{ event.date }}</p>
+      <p><strong>Location:</strong> {{ event.location }}</p>
+      <p>{{ event.description }}</p>
+      <a href="{{ url_for('view_registrations', event_id=event.id) }}" class="btn btn-outline-primary btn-sm btn-view-registrations">View Registrations</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

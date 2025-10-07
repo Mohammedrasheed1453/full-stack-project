@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}About Amrita Vishwa Vidyapeetham{% endblock %}
+{% block content %}
+<style>
+  .about-section {
+    background: linear-gradient(135deg, #6a0dad, #b43167);
+    color: #fff;
+    padding: 50px 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(180, 49, 103, 0.6);
+  }
+  .about-section h2 {
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  .about-section p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+  .about-image {
+    display: block;
+    max-width: 480px;
+    width: 100%;
+    margin: 40px auto 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(180, 49, 103, 0.4);
+    object-fit: cover;
+  }
+</style>
+
+<section class="about-section">
+  <h2>About Amrita Vishwa Vidyapeetham</h2>
+  <img src="{{ url_for('static', filename='first.jpg') }}" alt="Amrita Campus" class="about-image" />
+  <p>
+    Amrita Vishwa Vidyapeetham (Amrita University) is a leading private deemed university in India,
+    with a strong multi-campus presence across Tamil Nadu, Kerala, Andhra Pradesh, Haryana, and more.
+  </p>
+  <p>
+    Established in 2003, it offers over 250 programs with world-class infrastructure, extensive research facilities, and a commitment to social impact inspired by its humanitarian founder,
+    Sri Mata Amritanandamayi Devi (Amma).
+  </p>
+  <p>
+    The university has earned top ranks and national accreditation, collaborating globally for excellence.
+    Its holistic education integrates technology, culture, and sustainability, producing influential leaders,
+    researchers, and professionals.
+  </p>
+</section>
+{% endblock %}

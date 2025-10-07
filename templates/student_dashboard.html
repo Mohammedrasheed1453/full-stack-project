@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<style>
+  .event-card {
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+  }
+  .card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+  .btn-register {
+    margin-top: auto;
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 10px 0;
+    transition: background-color 0.3s ease;
+  }
+  .btn-register:hover {
+    background-color: #4c3e8c; /* Darker violet */
+  }
+  .event-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+</style>
+
+<h2 class="mb-4 text-center text-primary">Upcoming Events</h2>
+<div class="row justify-content-center">
+  {% for event in events %}
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card event-card h-100">
+      {% if event.image_filename %}
+      <img src="{{ url_for('static', filename='event_images/' ~ event.image_filename) }}" alt="Event image"
+           class="card-img-top" style="max-height: 290px; object-fit: cover;" />
+      {% endif %}
+      <div class="card-body d-flex flex-column">
+        <h5 class="event-title">{{ event.title }}</h5>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p class="card-text">{{ event.description }}</p>
+        <a href="{{ url_for('register_event', event_id=event.id) }}" class="btn btn-primary btn-register">Register</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
